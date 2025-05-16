@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService } from '../../core/services';
+import { AuthService, UserService } from '../../core/services';
 import { IUser } from '../../core/models';
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator ;
 
  
-  constructor(private userService: UserService,private dialog: MatDialog,private router: Router) {}
+  constructor(private userService: UserService,private dialog: MatDialog,private router: Router,private authService: AuthService) {}
 
   ngOnInit(): void {
     this.getAllUsers(this.page);
@@ -79,5 +79,9 @@ export class DashboardComponent implements OnInit {
 
   onPageChange(event: PageEvent) {
     this.getAllUsers(event.pageIndex + 1);
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }

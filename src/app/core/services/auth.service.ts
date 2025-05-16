@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -7,6 +8,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private router: Router
   ) {}
 
 
@@ -14,5 +16,12 @@ export class AuthService {
     return this.http.post<any>( 'https://reqres.in/api/login ', user)
   }
 
+  logout(): void {
+    localStorage.removeItem('intelligent-token');
+    this.router.navigate(['/login']);
+  }
 
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('intelligent-token');
+  }
 }

@@ -58,6 +58,7 @@ export class LoginComponent {
       .subscribe((data: any) => {
         if (data) {
           console.log('success...');
+          localStorage.setItem('intelligent-token',data.token)
           this.snackbarService.success(`Login successful `);
           this.router.navigate(['/dashboard']);
         }
