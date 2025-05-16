@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { AuthService, SnackbarService } from '../../core/services';
 import { catchError, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,11 @@ import { catchError, of } from 'rxjs';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService,  private snackbarService: SnackbarService
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private snackbarService: SnackbarService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['eve.holt@reqres.in', [Validators.required, Validators.email]],
@@ -54,7 +59,7 @@ export class LoginComponent {
         if (data) {
           console.log('success...');
           this.snackbarService.success(`Login successful `);
-
+          this.router.navigate(['/dashboard']);
         }
       });
   }
