@@ -7,8 +7,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { AuthService, SnackbarService } from '../../core/services';
-import { catchError, of } from 'rxjs';
+import { catchError, delay, of, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
@@ -20,12 +21,14 @@ import { Router } from '@angular/router';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  isLoading=false
 
   constructor(
     private fb: FormBuilder,
@@ -46,18 +49,22 @@ export class LoginComponent {
       this.snackbarService.error(`Please fill all the required details`);
       return;
     }
+    this.isLoading=true
 
-    this.authService
-      .loginUser(value)
-      .pipe(
-        catchError((error) => {
-          this.snackbarService.error(`Login failed: ${error?.error?.error}`);
-          return of(null);
-        })
-      )
+    of(null)
+    .pipe(
+      delay(2000), 
+      switchMap(() => this.authService.loginUser(value)),
+      catchError((error) => {
+        this.snackbarService.error(`Login failed: ${error?.error?.error}`);
+        this.isLoading = false;
+        return of(null);
+      })
+    )
       .subscribe((data: any) => {
         if (data) {
           localStorage.setItem('intelligent-token', data.token);
+          this.isLoading=false
           this.snackbarService.success(`Login successful `);
           this.router.navigate(['/dashboard']);
         }

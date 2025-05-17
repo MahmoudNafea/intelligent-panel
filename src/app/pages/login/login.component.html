@@ -22,7 +22,12 @@
           </mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" class="full-width">Login</button>
+        <button mat-raised-button color="primary" class="full-width">
+          <span *ngIf="!isLoading">Login</span>
+          <span *ngIf="isLoading">
+            <mat-spinner diameter="20" ></mat-spinner>
+          </span>
+        </button>
       </form>
     </mat-card-content>
   </mat-card>
