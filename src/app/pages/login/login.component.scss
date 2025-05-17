@@ -1,11 +1,29 @@
+.login-page {
+  height: 100vh;
+  text-align: center;
+  margin: 0px auto; 
+  padding: 30px;   
+  background-color: #f7f9fc;
+}
+.logo-img {
+  width: 120px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+.page-title {
+  font-size: 2.2rem;         
+  font-weight: 600;         
+  color: #161d43;           
+  margin-bottom: 30px;
+}
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background-color: #f7f9fc;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
+  margin-top: 30px;
 }
 
 .login-title {
@@ -18,9 +36,10 @@
 .login-card {
   width: 100%;
   max-width: 400px;
-  padding: 2rem;
+  padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  background-color: white;
 }
 
 .center-header {
