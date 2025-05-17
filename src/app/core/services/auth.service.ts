@@ -1,19 +1,14 @@
-import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
-
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
-
+  constructor(private http: HttpClient, private router: Router) {}
 
   loginUser(user: any) {
-    return this.http.post<any>( 'https://reqres.in/api/login ', user)
+    return this.http.post<any>(environment.basicUrl + 'login', user);
   }
 
   logout(): void {

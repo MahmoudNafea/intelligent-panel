@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   url: '',
-  basicUrl: '',
+  basicUrl: 'https://reqres.in/api/',
 }
 
 /*
