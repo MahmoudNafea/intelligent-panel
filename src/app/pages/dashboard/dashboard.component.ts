@@ -58,10 +58,6 @@ export class DashboardComponent implements OnInit {
       .getAllUsers(page)
       .pipe()
       .subscribe((data: any) => {
-        console.log(
-          '🚀 ~ DashboardComponent ~ this.userService.getAllUsers ~ data:',
-          data
-        );
         if (data) {
           this.users = data.data;
           this.dataSource = new MatTableDataSource<IUser>(this.users);

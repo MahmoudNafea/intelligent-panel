@@ -51,6 +51,8 @@ export class LoginComponent {
     }
     this.isLoading=true
 
+    // delaying the request for 2 seconds to show spinner
+
     of(null)
     .pipe(
       delay(2000), 

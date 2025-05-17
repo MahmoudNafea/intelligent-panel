@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { IUser } from '../../core/models';
 
 @Component({
   selector: 'app-user-details',
@@ -16,7 +17,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   styleUrl: './user-details.component.scss',
 })
 export class UserDetailsComponent implements OnInit {
-  user: any;
+  user: IUser | undefined;
   userId: string | null = null;
 
   constructor(
