@@ -43,25 +43,32 @@ export class LoginComponent {
     const { valid, value } = this.loginForm;
 
     if (!valid) {
-      console.log('not valid');
+      this.snackbarService.error(`Please fill all the required details`);
+      return;
     }
 
     this.authService
       .loginUser(value)
       .pipe(
         catchError((error) => {
-          console.log({ error });
           this.snackbarService.error(`Login failed: ${error?.error?.error}`);
           return of(null);
         })
       )
       .subscribe((data: any) => {
         if (data) {
-          console.log('success...');
-          localStorage.setItem('intelligent-token',data.token)
+          localStorage.setItem('intelligent-token', data.token);
           this.snackbarService.success(`Login successful `);
           this.router.navigate(['/dashboard']);
         }
       });
+  }
+
+  get email() {
+    return this.loginForm.get('email')!;
+  }
+
+  get password() {
+    return this.loginForm.get('password')!;
   }
 }

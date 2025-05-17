@@ -14,7 +14,6 @@ export class SnackbarService {
   success(message: string) {
     this.show(message, {
       duration: 3000,
-      panelClass: ['snack-success'],
       horizontalPosition: 'center',
       verticalPosition: 'top'
     });

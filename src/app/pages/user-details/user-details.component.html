@@ -1,10 +1,23 @@
-<div *ngIf="user; else loading">
-    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-    <p>Email: {{ user.email }}</p>
-    <img [src]="user.avatar" alt="avatar" style="border-radius: 50%; width: 100px; height: 100px;" />
-  </div>
-  
-  <ng-template #loading>
-    <p>Loading user details...</p>
-  </ng-template>
+<div class="user-details-container" *ngIf="user; else loading">
+  <mat-card class="user-card">
+    <mat-card-header>
+      <div mat-card-avatar class="avatar-container">
+        <img [src]="user.avatar" alt="avatar" />
+      </div>
+
+      <mat-card-title class="name-text">{{ user.first_name }} {{ user.last_name }}</mat-card-title>
+      <mat-card-subtitle class="card-text">User Id: {{ user.id }}</mat-card-subtitle>
+      <mat-card-subtitle class="card-text"><strong>Email:</strong> {{ user.email }}</mat-card-subtitle>
+
+    </mat-card-header>
+
+  </mat-card>
+</div>
+
+<ng-template #loading>
+  <!-- <p>Loading user details...</p> -->
+  <mat-spinner></mat-spinner>
+
+</ng-template>
+
   

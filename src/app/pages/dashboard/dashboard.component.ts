@@ -1,20 +1,31 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService, UserService } from '../../core/services';
 import { IUser } from '../../core/models';
-import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {
+  MatPaginator,
+  MatPaginatorModule,
+  PageEvent,
+} from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { NewUserModalComponent } from '../../components/user-form/new-user-modal.component';
+import { NewUserModalComponent } from '../../components/new-user-modal/new-user-modal.component';
 import { Router } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule],
+  imports: [
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
-
-
 export class DashboardComponent implements OnInit {
   users: IUser[] = [];
 
@@ -22,13 +33,17 @@ export class DashboardComponent implements OnInit {
   perPage = 6;
   page = 1;
 
-  displayedColumns: string[] = ['firstName','lastName', 'email', 'avatar'];
+  displayedColumns: string[] = ['avatar','name', 'email'];
   dataSource = new MatTableDataSource<IUser>();
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator ;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
- 
-  constructor(private userService: UserService,private dialog: MatDialog,private router: Router,private authService: AuthService) {}
+  constructor(
+    private userService: UserService,
+    private dialog: MatDialog,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.getAllUsers(this.page);
@@ -38,7 +53,7 @@ export class DashboardComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  getAllUsers(page:number) {
+  getAllUsers(page: number) {
     this.userService
       .getAllUsers(page)
       .pipe()
@@ -50,7 +65,7 @@ export class DashboardComponent implements OnInit {
         if (data) {
           this.users = data.data;
           this.dataSource = new MatTableDataSource<IUser>(this.users);
-          this.dataSource.paginator = this.paginator; 
+          this.dataSource.paginator = this.paginator;
 
           this.total = data.total;
           this.perPage = data.per_page;
@@ -59,20 +74,19 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  onViewUserDetails(user: IUser){
+  onViewUserDetails(user: IUser) {
     this.router.navigate(['/user', user.id]);
-
   }
 
-  onCreateNewUser(){
+  onCreateNewUser() {
     const dialogRef = this.dialog.open(NewUserModalComponent, {
-      width: '400px',
-      disableClose: true
+      width: '600px',
+      disableClose: true,
     });
-  
-    dialogRef.afterClosed().subscribe(result => {
+
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('new user data:', result);
+        // console.log('new user data:', result);
       }
     });
   }

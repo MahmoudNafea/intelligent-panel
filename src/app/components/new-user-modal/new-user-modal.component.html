@@ -1,0 +1,30 @@
+<h2 mat-dialog-title class="modal-title">Create New User</h2>
+
+<mat-dialog-content [formGroup]="userForm" class="modal-content">
+  <div class="form-row">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="first_name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="last_name" />
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="form-field full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" />
+  </mat-form-field>
+
+  <div class="upload-container">
+    <label for="avatarUpload">Avatar:</label>
+    <input id="avatarUpload" type="file" (change)="onFileSelected($event)" />
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="submitForm()">Create</button>
+</mat-dialog-actions>
